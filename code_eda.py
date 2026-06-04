@@ -82,7 +82,7 @@ def load_data(path):
     df["char_count"]  = df["clean_text"].apply(len)
     return df
 
-DATA_PATH = r"D:\SEMESTER 6\Studi Independen\EDA DATA KATEGORISASI\hasil_preprocessing_bersih.csv"
+DATA_PATH = "hasil_preprocessing_bersih.csv"
 
 try:
     df = load_data(DATA_PATH)
