@@ -70,7 +70,15 @@ st.markdown("""
 
 # ── Palette ───────────────────────────────────────────────────────────────────
 PALETTE = ["#4C72B0","#DD8452","#55A868","#C44E52","#8172B3","#937860","#DA8BC3"]
-WC_CMAPS = ["Blues","Oranges","Greens","Reds","Purples","YlOrBr","RdPu"]
+WC_CMAPS = [
+    "viridis",
+    "plasma",
+    "inferno",
+    "magma",
+    "cividis",
+    "turbo",
+    "cubehelix"
+]
 
 # ── Load data ─────────────────────────────────────────────────────────────────
 @st.cache_data
