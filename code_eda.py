@@ -435,6 +435,6 @@ with tab5:
 
 st.markdown("""
 <div style="text-align:center;color:#aaa;font-size:0.8rem;margin-top:2rem;">
-    Dashboard EDA · Kategorisasi Teks · Studi Independen Semester 6
+    Dashboard EDA · Kategorisasi Teks
 </div>
 """, unsafe_allow_html=True)
