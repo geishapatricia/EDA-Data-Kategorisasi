@@ -279,61 +279,33 @@ with tab3:
     st.markdown('<div class="section-pill">Word Cloud</div>', unsafe_allow_html=True)
     st.markdown("#### Visualisasi kata paling dominan per label")
 
-    wc_mode = st.radio(
-        "Tampilan",
-        ["🗂️ Semua label (grid)", "🔎 Satu label"],
-        horizontal=True,
-    )
+    cols = st.columns(2)
 
-    if wc_mode == "🗂️ Semua label (grid)":
-        cols = st.columns(2)
-        for i, lbl in enumerate(selected_labels):
-            sub  = df_f[df_f["label"] == lbl]
-            text = " ".join(sub["clean_text"])
-            if not text.strip():
-                continue
-            wc = WordCloud(
-                width=800, height=380,
-                background_color="white",
-                max_words=100,
-                collocations=False,
-                colormap=CMAP_MAP[lbl],
-            ).generate(text)
-            with cols[i % 2]:
-                st.markdown(f"""
-                <div style="background:{COLOR_MAP[lbl]};color:white;
-                     padding:0.4rem 1rem;border-radius:8px 8px 0 0;
-                     font-weight:700;font-size:0.9rem;">
-                    🏷️ {lbl} · {len(sub):,} data
-                </div>""", unsafe_allow_html=True)
-                fig, ax = plt.subplots(figsize=(7, 3.5))
-                ax.imshow(wc, interpolation="bilinear")
-                ax.axis("off")
-                fig.patch.set_facecolor("#ffffff")
-                plt.tight_layout(pad=0.5)
-                st.pyplot(fig)
-                plt.close()
-    else:
-        wc_label = st.selectbox("Pilih label", selected_labels)
-        sub  = df_f[df_f["label"] == wc_label]
+    for i, lbl in enumerate(selected_labels):
+        sub = df_f[df_f["label"] == lbl]
         text = " ".join(sub["clean_text"])
+
         if not text.strip():
-            st.warning("Tidak ada teks untuk label ini.")
-        else:
-            wc = WordCloud(
-                width=1200, height=500,
-                background_color="white",
-                max_words=150,
-                collocations=False,
-                colormap=CMAP_MAP[wc_label],
-            ).generate(text)
+            continue
+
+        wc = WordCloud(
+            width=800,
+            height=380,
+            background_color="white",
+            max_words=100,
+            collocations=False,
+            colormap=CMAP_MAP[lbl],
+        ).generate(text)
+
+        with cols[i % 2]:
             st.markdown(f"""
-            <div style="background:{COLOR_MAP[wc_label]};color:white;
-                 padding:0.5rem 1.2rem;border-radius:10px 10px 0 0;
-                 font-weight:700;font-size:1rem;">
-                🏷️ {wc_label} · {len(sub):,} data
+            <div style="background:{COLOR_MAP[lbl]};color:white;
+                 padding:0.4rem 1rem;border-radius:8px 8px 0 0;
+                 font-weight:700;font-size:0.9rem;">
+                🏷️ {lbl} · {len(sub):,} data
             </div>""", unsafe_allow_html=True)
-            fig, ax = plt.subplots(figsize=(12, 5))
+
+            fig, ax = plt.subplots(figsize=(7, 3.5))
             ax.imshow(wc, interpolation="bilinear")
             ax.axis("off")
             fig.patch.set_facecolor("#ffffff")
